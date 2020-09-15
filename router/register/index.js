@@ -2,6 +2,8 @@ const express = require('express')
 const app = express()
 const bodyParser = require('body-parser')
 var router = express.Router()
+var cors = require('cors');
+router.use(cors());
 var path = require('path')
 const { User } = require('../../models/User')
 const config = require('../../config/key')
