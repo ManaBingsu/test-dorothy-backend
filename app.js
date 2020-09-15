@@ -1,9 +1,13 @@
 const express = require('express')
 const app = express()
 var cors = require('cors');
-app.use(cors());
-// For CORS error
-app.options('*', cors())
+const corsOption = {
+    origin: process.env.CORS_ORIGIN || '*', 
+    methods: ['GET', 'PUT', 'POST', 'PATCH', 'DELETE', 'OPTIONS'], 
+    allowedHeaders: ["Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization"]
+};
+app.use(cors(corsOption));
+
 
 const bodyParser = require('body-parser')
 
