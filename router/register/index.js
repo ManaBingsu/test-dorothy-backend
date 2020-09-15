@@ -14,12 +14,8 @@ mongoose.connect(config.mongoURI,{
 router.use(bodyParser.urlencoded({extended: true}));
 router.use(bodyParser.json());
 
-router.get('/', async (req, res) => {
+router.get('/', (req, res) => {
 
-    User.findOne( {"name":"HyunSeokTest001"}, function(err, users) {
-        if (err) return res.status(500).send("User 전체 조회 실패.");
-        res.status(200).send(users.name);
-    /*
     const user = new User(req.body)
 
     user.save((err, userInfo) => {
