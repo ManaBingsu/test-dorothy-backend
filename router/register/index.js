@@ -14,7 +14,7 @@ mongoose.connect(config.mongoURI,{
 router.use(bodyParser.urlencoded({extended: true}));
 router.use(bodyParser.json());
 
-router.get('/', (req, res) => {
+router.post('/', (req, res) => {
 
     const user = new User(req.body)
 
@@ -24,6 +24,10 @@ router.get('/', (req, res) => {
             success: true
         })
     })
+})
+
+router.get('/', (req, res) => {
+    res.send('Register API')
 })
 
 module.exports = router;
