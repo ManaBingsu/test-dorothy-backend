@@ -2,7 +2,6 @@ const express = require('express')
 const app = express()
 const bodyParser = require('body-parser')
 var router = express.Router()
-var cors = require('cors');
 
 var path = require('path')
 const { User } = require('../../models/User')
@@ -16,8 +15,7 @@ mongoose.connect(config.mongoURI,{
 router.use(bodyParser.urlencoded({extended: true}));
 router.use(bodyParser.json());
 
-router.post('/', cors(), (req, res) => {
-
+router.post('/', (req, res) => {
     const user = new User(req.body)
 
     user.save((err, userInfo) => {
