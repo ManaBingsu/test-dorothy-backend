@@ -1,25 +1,19 @@
 const express = require('express')
 const app = express()
+/*
 var cors = require('cors');
 const corsOption = {
     origin: process.env.CORS_ORIGIN || '*', 
     methods: ['GET', 'PUT', 'POST', 'PATCH', 'DELETE', 'OPTIONS'], 
     allowedHeaders: ["Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization"]
 };
-app.use(cors(corsOption));
+app.use(cors(corsOption));*/
 
-app.use((req, res, next) => { 
-    res.header("Access-Control-Allow-Origin", "*") 
-    res.header(
-        "Access-Control-Allow-Headers",
-        "Origin, X-Requested-With, Content-Type, Accept, Authorization"
-    );
-    if(req.method === 'OPTIONS'){
-        res.header('Access-Control-Allow-Methods', 'PUT, POST, PATCH, DELETE, GET'); 
-        return res.status(200).json({});
-    }
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "*");
     next();
-})
+});
 
 const bodyParser = require('body-parser')
 
