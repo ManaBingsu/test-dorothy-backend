@@ -1,7 +1,7 @@
 const express = require('express')
 const app = express()
 const bodyParser = require('body-parser')
-const cors = require('cors');
+
 var router = express.Router()
 
 var path = require('path')
@@ -16,7 +16,7 @@ mongoose.connect(config.mongoURI,{
 router.use(bodyParser.urlencoded({extended: true}));
 router.use(bodyParser.json());
 
-router.post('/', cors(), (req, res) => {
+router.post('/', (req, res) => {
 
     res.header("Access-Control-Allow-Headers", "Origin,Accept,X-Requested-With,Content-Type,Access-Control-Request-Method,Access-Control-Request-Headers,Authorization");
 
