@@ -16,7 +16,13 @@ router.use(bodyParser.urlencoded({extended: true}));
 router.use(bodyParser.json());
 
 router.post('/', (req, res) => {
-    res.writeHead(200, { 'Access-Control-Allow-Origin': '*' });
+
+    res.headers = {
+        "Access-Control-Allow-Headers" : "Content-Type",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "OPTIONS,POST,GET"
+    }
+
     const user = new User(req.body)
 
     user.save((err, userInfo) => {
