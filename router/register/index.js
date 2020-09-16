@@ -17,17 +17,13 @@ router.use(bodyParser.json());
 
 router.post('/', (req, res) => {
 
-    res.headers = {
-        "Access-Control-Allow-Headers" : "Content-Type",
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "OPTIONS,POST,GET"
-    }
+    res.header("Access-Control-Allow-Origin", "*");
 
     const user = new User(req.body)
 
     user.save((err, userInfo) => {
         if (err) return res.json({success: false, err})
-        return res.status(200).json({
+        return res.json({
             success: true
         })
     })
