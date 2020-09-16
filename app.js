@@ -1,9 +1,9 @@
 const express = require('express')
 const app = express()
 const cors = require('cors');
-app.use(cors());
-app.options('*', cors());  // enable pre-flight
-  
+
+app.use(cors({origin: ["http://localhost:3000/", "http://localhost:3001/"]}));
+
 const bodyParser = require('body-parser')
 
 app.use(bodyParser.urlencoded({extended: true}));

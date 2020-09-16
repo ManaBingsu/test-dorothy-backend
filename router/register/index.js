@@ -30,7 +30,7 @@ router.post('/', (req, res) => {
 })
 
 router.get('/', (req, res) => {
-    res.send('Register API')
+    res.send('API')
 })
 
 module.exports = router;
