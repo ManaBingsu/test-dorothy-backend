@@ -16,5 +16,5 @@ app.listen(process.env.PORT || 3000)
 app.use('/register', register)
 
 app.get('/', (req, res) =>{ 
-    res.send('Dorothy API : I REALLY HATE CORS')
+    res.send('Dorothy API : I REALLY REALLy HATE CORS')
 })

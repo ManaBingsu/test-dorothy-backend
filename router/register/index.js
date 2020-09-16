@@ -18,6 +18,8 @@ router.use(bodyParser.json());
 
 router.post('/', cors(), (req, res) => {
 
+    res.header("Access-Control-Allow-Headers", "Origin,Accept,X-Requested-With,Content-Type,Access-Control-Request-Method,Access-Control-Request-Headers,Authorization");
+
     const user = new User(req.body)
 
     user.save((err, userInfo) => {
