@@ -1,10 +1,8 @@
 const express = require('express')
 const app = express()
 const bodyParser = require('body-parser')
-
 var router = express.Router()
 
-var path = require('path')
 const { User } = require('../../models/User')
 const config = require('../../config/key')
 
@@ -17,8 +15,6 @@ router.use(bodyParser.urlencoded({extended: true}));
 router.use(bodyParser.json());
 
 router.post('/', (req, res) => {
-
-    res.header("Access-Control-Allow-Headers", "Origin,Accept,X-Requested-With,Content-Type,Access-Control-Request-Method,Access-Control-Request-Headers,Authorization");
 
     const user = new User(req.body)
 
