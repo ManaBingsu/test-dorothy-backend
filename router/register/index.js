@@ -1,6 +1,7 @@
 const express = require('express')
 const app = express()
 const bodyParser = require('body-parser')
+const cors = require('cors');
 var router = express.Router()
 
 var path = require('path')
@@ -15,9 +16,7 @@ mongoose.connect(config.mongoURI,{
 router.use(bodyParser.urlencoded({extended: true}));
 router.use(bodyParser.json());
 
-router.post('/', (req, res) => {
-
-    res.header("Access-Control-Allow-Origin", "*");
+router.post('/', cors(), (req, res) => {
 
     const user = new User(req.body)
 
