@@ -1,26 +1,29 @@
 const express = require('express')
 const app = express()
 const cors = require('cors');
-app.use(cors());
-
+app.use(cors())
 const bodyParser = require('body-parser')
-
-app.use(bodyParser.urlencoded({extended: true}));
-app.use(bodyParser.json());
-
-var router = require('./router/index')
+const router = require('./router/index')
+const session = require('express-session')
+const flash = require('connect-flash')
+const mongoose = require('mongoose')
+require('./modules/DB')(mongoose);
+const passport = require('passport');
+require("./modules/passport")(passport);
 
 app.listen(process.env.PORT || 3000)
 
-app.use(router)
-/*
-app.post('/test', (req, res) => {
+app.use(bodyParser.urlencoded({extended: true}))
+app.use(bodyParser.json())
+app.use(session({
+    secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: true,
+}))
 
-    return res.json({
-        success: true
-    })
-})
-*/
-app.get('/', (req, res) =>{ 
-    res.send('Dorothy API : I REALLY REALLy HATE CORS')
-})
+app.use(flash())
+
+app.use(passport.initialize())
+app.use(passport.session())
+
+app.use(router)

@@ -1,9 +1,13 @@
 var express = require('express')
-var app = express()
 var router = express.Router()
-var path = require('path')
-var register = require('./register/index')
+var signup = require('./signup/index')
+var signin = require('./signin/index')
 
-router.use('/register', register)
+router.use('/signup', signup)
+router.use('/signin', signin)
+
+router.get('/', (req, res) =>{ 
+    res.send('Dorothy API')
+})
 
 module.exports = router;
