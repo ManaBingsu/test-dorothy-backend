@@ -1,6 +1,7 @@
-const mongoose = require('mongoose');
+const mongoose = require('mongoose')
+var bcrypt = require('bcrypt-nodejs');
 
-const userSchema = mongoose.Schema({
+const userSchema = new mongoose.Schema({
     name: {
         type: String,
         maxlength: 50
@@ -31,6 +32,17 @@ const userSchema = mongoose.Schema({
     }
 })
 
-const User = mongoose.model('User', userSchema)
+userSchema.methods.generateHash = (password) => {
+    return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
+};
 
-module.exports = { User }
+userSchema.methods.validPassword = function (password) {
+    if (password != null)
+    {
+        return bcrypt.compareSync(password, this.password);
+    }
+    else
+        return false;
+};
+
+module.exports = mongoose.model('User', userSchema)
