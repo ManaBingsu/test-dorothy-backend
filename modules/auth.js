@@ -7,8 +7,8 @@ var EXPIRES = '1h'; // 1 hour
 function signToken(id) {
   return jwt.sign({id: id}, SECRET, { expiresIn: EXPIRES });
 }
- 
-const authMiddleware = (req, res, next) => {
+
+function authuser (req, res) {
     // read the token from header or url 
     const token = req.headers['accesstoken'] || req.query.token
 
@@ -23,12 +23,20 @@ const authMiddleware = (req, res, next) => {
     // create a promise that decodes the token
     const p = new Promise(
         (resolve, reject) => {
-            jwt.verify(token, req.app.get('jwt-secret'), (err, decoded) => {
+            jwt.verify(token, SECRET, (err, decoded) => {
                 if(err) reject(err)
                 resolve(decoded)
             })
         }
     )
+
+    // if token is valid, it will respond with its info
+    const respond = (token) => {
+        res.json({
+            success: true,
+            info: token
+        })
+    }
 
     // if it has failed to verify, it will return an error message
     const onError = (error) => {
@@ -39,11 +47,8 @@ const authMiddleware = (req, res, next) => {
     }
 
     // process the promise
-    p.then((decoded)=>{
-        req.decoded = decoded
-        next()
-    }).catch(onError)
+    p.then(respond).catch(onError)
 }
  
 exports.signToken = signToken;
-exports.authMiddleware = authMiddleware
+exports.authuser = authuser;

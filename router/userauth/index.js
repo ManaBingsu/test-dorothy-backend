@@ -4,5 +4,7 @@ const passport = require('passport')
 const auth = require('../../modules/auth')
 
 router.post('/', function(req, res, next) {
-    return auth.isAuthenticated()
-  });
+    auth.authuser(req, res);
+});
+
+module.exports = router;
