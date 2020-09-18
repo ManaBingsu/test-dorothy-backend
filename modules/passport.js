@@ -2,9 +2,9 @@ var LocalStrategy = require('passport-local').Strategy;
 const User = require('../models/User')
 const { Console } = require ('console');
    
-module.exports = function(passport){ // index.js에서 넘겨준 passport입니다.
-   passport.serializeUser(function(user, done){ // req.session.passport.user에 세션에 저장하는 과정입니다.
-      done(null, user.id); // deserializeUser에 값을 넘겨줍니다.
+module.exports = function(passport){ 
+   passport.serializeUser(function(user, done){
+      done(null, user.id); // 
     });
     passport.deserializeUser(function(id, done){ // 세션에 저장되어있는 값을 DB와 비교하는 과정입니다.
       User.findById(id, function(err, user){
@@ -23,13 +23,13 @@ module.exports = function(passport){ // index.js에서 넘겨준 passport입니�
                 return done(null, false, {message : 'your email is already used'})
             }
             const newUser = new User();
-        newUser.email = email; // 넘겨받은 정보들을 세팅합니다.
-        newUser.password = newUser.generateHash(password); // generateHash을 통해 비밀번호를 hash화 합니다.
-        newUser.name = req.body.name;
+            newUser.email = email; // 넘겨받은 정보들을 세팅합니다.
+            newUser.password = newUser.generateHash(password); // generateHash을 통해 비밀번호를 hash화 합니다.
+            newUser.name = req.body.name;
   
-        newUser.save(function (err) { // 저장합니다.
-          if (err) throw err;
-          return done(null, newUser); // serializeUser에 값을 넘겨줍니다.
+            newUser.save(function (err) { // 저장합니다.
+            if (err) throw err;
+            return done(null, newUser); // serializeUser에 값을 넘겨줍니다.
         });
         })
     }))
