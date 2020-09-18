@@ -1,6 +1,7 @@
 const express = require('express')
 var router = express.Router()
 const passport = require('passport');
+const auth = require('../../modules/auth')
 
 router.post('/', function(req, res, next) {
 
@@ -11,7 +12,9 @@ router.post('/', function(req, res, next) {
 
       req.logIn(user, function(err) {
           if (err) { return next(err); }
+          var token = auth.signToken(user.email)
           return res.json ({
+            accesstoken: token,
             name: user.name,
             email: user.email
           });
